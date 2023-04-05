@@ -16,13 +16,15 @@ filename = f"{config.app_name}/{config.app_name}.py"
 class State(pc.State):
     """The app state."""
 
+    grid = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+
     pass
 
 
 def index() -> pc.Component:
     return pc.center(
         pc.vstack(
-            pc.heading("Futoshiki", font_size="2em"),
+            pc.heading('Futoshiki', font_size="2em"),
             pc.text(TEXT_FUTOSHIKI_DESCRIPTION, font_size='1em', width='80%'),
             pc.link(
                 "Start playing",
@@ -40,8 +42,9 @@ def index() -> pc.Component:
         padding_top="10%",
     )
 
+
 # Add state and page to the app.
 app = pc.App(state=State)
-app.add_page(index, route='/')
-app.add_page(pageGame, route='/game')
+app.add_page(index, route='/', title='Futoshiki')
+app.add_page(lambda: pageGame(State), route='/game', title='Futoshiki')
 app.compile()
