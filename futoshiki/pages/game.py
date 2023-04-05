@@ -33,6 +33,7 @@ def pageGame(State) -> pc.Component:
                 width="fit-content",
                 gap=1,
                 padding=5,
+                paddingTop='20vh',
             ),
 
             # Buttons

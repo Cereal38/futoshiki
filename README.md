@@ -6,16 +6,16 @@ INF401 project
 
 Futoshiki solver
 
-## Requirements
-
-    pip install pynecone
-
 ## Run project
 
-    pc run
+Run the following commands :
 
-Using any browser, connect to the localhost server (port 3000 by default) : http://localhost:3000
+    source env/bin/activate && pip install -r requirements.txt && pc run
+
+Then : Using any browser, connect to the localhost server (port 3000 by default) : http://localhost:3000
 
 ## Ressources
 
-https://github.com/pynecone-io/pynecone
+Docs : https://pynecone.io/docs/getting-started/introduction
+
+Existing project : https://github.com/pynecone-io/pynecone
