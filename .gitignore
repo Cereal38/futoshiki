@@ -91,3 +91,13 @@ env/lib/python3.8/site-packages/watchdog/
 env/lib/python3.8/site-packages/websockets-10.4.dist-info/
 env/lib/python3.8/site-packages/websockets/
 env/share/jupyter/
+env/bin/autopep8
+env/bin/pycodestyle
+env/lib/python3.8/site-packages/__pycache__/autopep8.cpython-38.pyc
+env/lib/python3.8/site-packages/__pycache__/pycodestyle.cpython-38.pyc
+env/lib/python3.8/site-packages/autopep8-2.0.2.dist-info/
+env/lib/python3.8/site-packages/autopep8.py
+env/lib/python3.8/site-packages/pycodestyle-2.10.0.dist-info/
+env/lib/python3.8/site-packages/pycodestyle.py
+env/lib/python3.8/site-packages/tomli-2.0.1.dist-info/
+env/lib/python3.8/site-packages/tomli/
