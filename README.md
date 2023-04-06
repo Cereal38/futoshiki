@@ -8,9 +8,15 @@ Futoshiki solver
 
 ## Run project
 
-Run the following commands :
+Run the following commands:
 
-    source env/bin/activate && pip install -r requirements.txt && pc run
+Optional but better (create a virtual environment) :
+
+    python -m venv env && source evn/bin/activate
+
+Install all dependencies and run the server :    
+
+    pip install -r requirements.txt && pc run
 
 Then : Using any browser, connect to the localhost server (port 3000 by default) : http://localhost:3000
 
