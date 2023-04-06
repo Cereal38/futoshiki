@@ -3,6 +3,18 @@
 import pynecone as pc
 
 
+def displayCar(value):
+
+    return pc.grid_item(
+        value,
+        row_span=1, col_span=1,
+        bg="lightgrey",
+        width=50, height=50,
+        display='flex',
+        justifyContent='center',
+        alignItems='center',)
+
+
 def pageGame(State) -> pc.Component:
 
     return pc.center(
@@ -25,18 +37,7 @@ def pageGame(State) -> pc.Component:
                 #     line[0], row_span=1, col_span=1, bg="lightgrey", width=50, height=50)),
                 pc.foreach(
                     State.grid, lambda line:
-                    pc.foreach(
-                        line, lambda col:
-                        pc.grid_item(
-                            col,
-                            row_span=1, col_span=1,
-                            bg="lightgrey",
-                            width=50, height=50,
-                            display='flex',
-                            justifyContent='center',
-                            alignItems='center',
-                        )
-                    )
+                    pc.foreach(line, displayCar)
                 ),
                 template_columns="repeat(7, 1fr)",
                 template_rows="repeat(7, 1fr)",
