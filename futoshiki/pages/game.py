@@ -50,7 +50,12 @@ def pageGame(State) -> pc.Component:
             # Buttons
             pc.center(
                 pc.button('New', size='lg'),
-                pc.button('Solve', size='lg', color_scheme='blue'),
+                pc.button(
+                    'Solve',
+                    size='lg',
+                    color_scheme='blue',
+                    on_click=State.solve
+                ),
                 gap=5,
             )
 

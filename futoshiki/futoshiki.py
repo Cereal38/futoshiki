@@ -29,7 +29,8 @@ class State(pc.State):
         ['0', '.', '1', 'l', '0', '.', '0'],
     ]
 
-    pass
+    def solve (self):
+        self.grid[0][0] = 3
 
 
 def index() -> pc.Component:
