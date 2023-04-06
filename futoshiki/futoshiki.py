@@ -10,13 +10,24 @@ from futoshiki.pages.game import pageGame
 # Text
 from futoshiki.utils.text import TEXT_FUTOSHIKI_DESCRIPTION
 
+# Type
+from typing import List
+
 filename = f"{config.app_name}/{config.app_name}.py"
 
 
 class State(pc.State):
     """The app state."""
 
-    grid = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16]
+    grid:List[List[str]] = [
+        ['0', '.', '1', 'l', '0', '.', '0'],
+        ['u', '.', '.', '.', '.', '.', 'd'],
+        ['0', '.', '1', 'l', '0', 'r', '0'],
+        ['u', '.', '.', '.', '.', '.', 'd'],
+        ['0', '.', '1', 'l', '0', '.', '0'],
+        ['u', '.', '.', '.', '.', '.', 'd'],
+        ['0', '.', '1', 'l', '0', '.', '0'],
+    ]
 
     pass
 

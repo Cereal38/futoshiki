@@ -3,10 +3,6 @@
 import pynecone as pc
 
 
-# def gridItem(value):
-#     return pc.grid_item(row_span=1, col_span=1, bg="lightgrey", width=50, height=50),
-
-
 def pageGame(State) -> pc.Component:
 
     return pc.center(
@@ -25,15 +21,29 @@ def pageGame(State) -> pc.Component:
 
             # Grid
             pc.grid(
-                pc.foreach(State.grid, lambda gridItem: pc.grid_item(
-                    row_span=1, col_span=1, bg="lightgrey", width=50, height=50)),
-                template_columns="repeat(4, 1fr)",
-                template_rows="repeat(4, 1fr)",
+                # pc.foreach(State.grid, lambda line, index: pc.grid_item(
+                #     line[0], row_span=1, col_span=1, bg="lightgrey", width=50, height=50)),
+                pc.foreach(
+                    State.grid, lambda line:
+                    pc.foreach(
+                        line, lambda col:
+                        pc.grid_item(
+                            col,
+                            row_span=1, col_span=1,
+                            bg="lightgrey",
+                            width=50, height=50,
+                            display='flex',
+                            justifyContent='center',
+                            alignItems='center',
+                        )
+                    )
+                ),
+                template_columns="repeat(7, 1fr)",
+                template_rows="repeat(7, 1fr)",
                 height='fit-content',
                 width="fit-content",
                 gap=1,
                 padding=5,
-                paddingTop='20vh',
             ),
 
             # Buttons
