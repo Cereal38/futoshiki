@@ -1,5 +1,6 @@
 anyio==3.6.2
 async-timeout==4.0.2
+autopep8==2.0.2
 bidict==0.22.1
 certifi==2022.12.7
 click==8.1.3
@@ -15,6 +16,7 @@ idna==3.4
 packaging==23.0
 plotly==5.14.1
 psutil==5.9.4
+pycodestyle==2.10.0
 pydantic==1.10.2
 Pygments==2.14.0
 pynecone==0.1.21
@@ -31,8 +33,10 @@ sqlalchemy2-stubs==0.0.2a33
 sqlmodel==0.0.8
 starlette==0.22.0
 tenacity==8.2.2
+tomli==2.0.1
 typer==0.4.2
 typing-extensions==4.5.0
 uvicorn==0.20.0
 watchdog==2.3.1
 websockets==10.4
+z3-solver==4.12.1.0

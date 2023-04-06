@@ -71,6 +71,7 @@ def pageGame(State) -> pc.Component:
                     gap='20px',
                 ),
                 position='relative',
+                padding='15vh 0 20px 0',
             ),
 
             # Buttons
