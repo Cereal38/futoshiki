@@ -2,14 +2,23 @@
 # Futoshiki
 import pynecone as pc
 
-
-def displayCar(value):
+def displayDigit(value):
 
     return pc.grid_item(
         value,
         row_span=1, col_span=1,
         bg="lightgrey",
-        width=50, height=50,
+        width='60px', height='60px',
+        display='flex',
+        justifyContent='center',
+        alignItems='center',)
+
+def displayInequal(value):
+
+    return pc.grid_item(
+        value,
+        row_span=1, col_span=1,
+        width='20px', height='20px',
         display='flex',
         justifyContent='center',
         alignItems='center',)
@@ -31,20 +40,37 @@ def pageGame(State) -> pc.Component:
                 padding=5,
             ),
 
-            # Grid
-            pc.grid(
-                # pc.foreach(State.grid, lambda line, index: pc.grid_item(
-                #     line[0], row_span=1, col_span=1, bg="lightgrey", width=50, height=50)),
-                pc.foreach(
-                    State.grid, lambda line:
-                    pc.foreach(line, displayCar)
-                ),
-                template_columns="repeat(7, 1fr)",
-                template_rows="repeat(7, 1fr)",
-                height='fit-content',
-                width="fit-content",
-                gap=1,
+            pc.box(
+                width='100vw',
                 padding=5,
+            ),
+
+            # Grid
+            pc.box(
+                pc.grid(
+                    pc.foreach(
+                        State.gridInequal, lambda line:
+                        pc.foreach(line, displayInequal)
+                    ),
+                    template_columns="repeat(15, 1fr)",
+                    template_rows="repeat(15, 1fr)",
+                    height='fit-content',
+                    width="fit-content",
+                    gap='0',
+                    position='absolute',
+                ),
+                pc.grid(
+                    pc.foreach(
+                        State.gridDigit, lambda line:
+                        pc.foreach(line, displayDigit)
+                    ),
+                    template_columns="repeat(4, 1fr)",
+                    template_rows="repeat(4, 1fr)",
+                    height='fit-content',
+                    width="fit-content",
+                    gap='20px',
+                ),
+                position='relative',
             ),
 
             # Buttons
