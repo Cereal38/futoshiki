@@ -101,3 +101,6 @@ env/lib/python3.8/site-packages/pycodestyle-2.10.0.dist-info/
 env/lib/python3.8/site-packages/pycodestyle.py
 env/lib/python3.8/site-packages/tomli-2.0.1.dist-info/
 env/lib/python3.8/site-packages/tomli/
+env/bin/z3
+env/lib/python3.8/site-packages/z3/
+env/lib/python3.8/site-packages/z3_solver-4.12.1.0.dist-info/
