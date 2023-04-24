@@ -4,7 +4,7 @@
 
 INF401 project
 
-Futoshiki solver
+FUTOSHIKI solver
 
 ## Run project
 
