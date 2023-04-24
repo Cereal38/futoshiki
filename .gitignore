@@ -1,3 +1,7 @@
 .web
 pynecone.db
 env/
+__pycache__/
+futoshiki/__pycache__/
+futoshiki/pages/__pycache__/
+futoshiki/utils/__pycache__/
