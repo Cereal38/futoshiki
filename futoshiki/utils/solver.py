@@ -113,17 +113,13 @@ def solve () :
   file = open("s.cnf", "w")
   file.write(str(resCmd))
 
-  print("RES", resCmd)
-
-  solution = resCmd.split("v")[0].split()
-
+  solution = resCmd.split("v")[1].split()
 
   solution = list(filter(delNegNumbers, solution))
-  solution.pop(0)
-  print (solution)
-  sss = solution
 
-  print (sss)
+  print(solution)
+
+  # solution.pop(0)
 
 
 solve()
