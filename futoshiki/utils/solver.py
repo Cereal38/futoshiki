@@ -143,10 +143,10 @@ def printSolution(solution):
 
     n = int(len(solution) ** 0.5)
 
-    for i in range(1, n+1):
-        for j in range(1, n+1) :
-          print(solution[j*i-1][2], end=' ')
+    for i in range(n):
+        for j in range(n) :
+          print(solution[i*n+j][2], end=' ')
         print('\n')
 
 
-printSolution(solve(4))
+# printSolution(solve(4))
