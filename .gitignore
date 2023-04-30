@@ -5,3 +5,5 @@ __pycache__/
 futoshiki/__pycache__/
 futoshiki/pages/__pycache__/
 futoshiki/utils/__pycache__/
+futoshiki/utils/f.cnf
+futoshiki/utils/s.cnf
