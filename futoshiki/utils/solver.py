@@ -115,11 +115,24 @@ def solve () :
 
   solution = resCmd.split("v")[1].split()
 
+  solution.pop(-1)
+
   solution = list(filter(delNegNumbers, solution))
 
-  print(solution)
+  es = 1 
+  for p in solution :
+      if es <= n :
+          print(to_tuple (int (p),n), end= "  ")
+          es += 1
+      else :
+          print ("\n")
+          print(to_tuple (int (p),n), end= "  ")
+          es = 2
 
-  # solution.pop(0)
+  print('\n')
+
+
+  # print(solution)
 
 
 solve()
