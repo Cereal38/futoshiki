@@ -10,6 +10,9 @@ from futoshiki.pages.game import pageGame
 # Text
 from futoshiki.utils.text import TEXT_FUTOSHIKI_DESCRIPTION
 
+# Funcions
+from futoshiki.utils.solver import solve as solveGrid
+
 # Type
 from typing import List
 
@@ -45,14 +48,7 @@ class State(pc.State):
     ]
 
     def solve(self):
-        newGrid = []
-        for line in self.gridDigit:
-            newGrid.append(line)
-
-        for line in range(len(newGrid)):
-            for col in range(len(newGrid[line])):
-                if newGrid[line][col] == '':
-                    newGrid[line][col] = '1'
+        solveGrid(2)
 
 
 def index() -> pc.Component:
