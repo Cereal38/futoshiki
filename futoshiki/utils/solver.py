@@ -11,8 +11,6 @@ def ijk_to_num_case (a,b,c,n) :
                 else :
                     v += 1
 
-n = 6
-
 
 def creer_puzzle(coord_list, n):
     if n > 9:
@@ -46,6 +44,16 @@ def constraints_01 (n) :
 def delNegNumbers(number: str):
     return not list(number)[0] == '-'
 
+
+def to_tuple (a,n) :
+    v = 1
+    for i in range (1,n+1) :
+        for j in range (1,n+1) :
+            for k in range (1, n + 1) :
+                if (a == v) :
+                    return  (i,j,k)
+                else :
+                    v += 1
 
 def constraints_02 (n) :
     constraints = []
@@ -85,54 +93,37 @@ def constraints_03 (n) :
     return clauses
 
 
-ma_liste = constraints_01(n) + constraints_02(n) + constraints_03(n) 
+def solve () :
+
+  n = 6
+
+  constraints = constraints_01(n) + constraints_02(n) + constraints_03(n) 
+
+  with open('f.cnf', 'w') as fichier:
+      fichier.write("p  cnf "  +str (n*n*n) +" "+ str(len (constraints))  + '\n')
+      for element in constraints:
+          cc =""
+          for p in element :
+              cc += p
+          fichier.write(cc + '\n')
 
 
-with open('f.cnf', 'w') as fichier:
-    fichier.write("p  cnf "  +str (n*n*n) +" "+ str(len (ma_liste))  + '\n')
-    for element in ma_liste:
-        cc =""
-        for p in element :
-            cc += p
-        fichier.write(cc + '\n')
+  resCmd = subprocess.run(["z3",  "f.cnf"], capture_output=True, text=True).stdout
+  # Ecrit le resultat de la commande dans un fichier
+  file = open("s.cnf", "w")
+  file.write(str(resCmd))
+
+  print("RES", resCmd)
+
+  solution = resCmd.split("v")[0].split()
 
 
-resCmd = subprocess.run(["z3",  "f.cnf"], capture_output=True, text=True).stdout
-# Ecrit le resultat de la commande dans un fichier
-file = open("s.cnf", "w")
-file.write(str(resCmd))
+  solution = list(filter(delNegNumbers, solution))
+  solution.pop(0)
+  print (solution)
+  sss = solution
 
-solution = resCmd.split("v")[0].split()
-
-
-solution = list(filter(delNegNumbers, solution))
-solution.pop(0)
-print (solution)
-sss = solution
-
-print (sss)
+  print (sss)
 
 
-def to_tuple (a,n) :
-    v = 1
-    for i in range (1,n+1) :
-        for j in range (1,n+1) :
-            for k in range (1, n + 1) :
-                if (a == v) :
-                    return  (i,j,k)
-                else :
-                    v += 1
-
-
-# es = 1 
-# for p in sss :
-#     if es <= n :
-#         print(to_tuple (int (p),n), end= "  ")
-#         es += 1
-#     else :
-#         print ("\n")
-#         print(to_tuple (int (p),n), end= "  ")
-#         es = 2
-
-
-
+solve()
