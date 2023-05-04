@@ -31,7 +31,7 @@ class State(pc.State):
 
     gridInequal: List[List[str]] = [
         ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-        ['', '', '', 'ᐊ', '', '', '', '', '', '', '', 'ᐊ', '', '', ''],
+        ['', '', '', 'Δ', '', '', '', '', '', '', '', 'ᐊ', '', '', ''],
         ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
         ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
         ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
@@ -68,7 +68,10 @@ class State(pc.State):
         solution = solveGrid(self.gridDigit, [[[0, 1], [1, 1]]])
         self.gridDigit = solution
         self.gridInequal = self.create_grid_inequal([
-            [[0, 2], [0, 3]],
+            [[1, 1], [0, 1]],
+            [[1, 1], [1, 2]],
+            [[1, 1], [2, 1]],
+            [[1, 1], [1, 0]],
         ])
 
     def create_grid_inequal(self, constraints):
@@ -84,6 +87,9 @@ class State(pc.State):
           if (maxValue == 0) :
               indexRow = 1
           else :
+            if (constraint[0][0] == constraint[1][0]) :
+              indexRow = maxValue * 4 + 1
+            else :
               indexRow = maxValue * 4 - 1
 
           # Check column
@@ -91,8 +97,23 @@ class State(pc.State):
           if (maxValue == 0) :
               indexCol = 1
           else :
-              indexCol = maxValue * 4 - 1
-          gridInequalsFormat[indexRow][indexCol] = '£'
+              if (constraint[0][1] == constraint[1][1]) :
+                indexCol = maxValue * 4 + 1
+              else :
+                indexCol = maxValue * 4 - 1
+          
+          # Up
+          if (constraint[0][0] > constraint[1][0]) :
+            gridInequalsFormat[indexRow][indexCol] = 'Δ'
+          # Down
+          elif (constraint[1][0] > constraint[0][0]) :
+            gridInequalsFormat[indexRow][indexCol] = 'ᐁ'
+          # Left
+          elif (constraint[0][1] > constraint[1][1]) :
+            gridInequalsFormat[indexRow][indexCol] = 'ᐊ'
+          # Right
+          elif (constraint[1][1] > constraint[0][1]) :
+            gridInequalsFormat[indexRow][indexCol] = 'ᐅ'
       
       return gridInequalsFormat
           
