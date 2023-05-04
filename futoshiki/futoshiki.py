@@ -11,7 +11,7 @@ from futoshiki.pages.game import pageGame
 from futoshiki.utils.text import TEXT_FUTOSHIKI_DESCRIPTION
 
 # Funcions
-from futoshiki.utils.solver import solve as solveGrid
+from futoshiki.utils.solver3 import solve as solveGrid
 
 # Type
 from typing import List
@@ -23,8 +23,8 @@ class State(pc.State):
     """The app state."""
 
     gridDigit: List[List[str]] = [
-        ['', '', '', ''],
-        ['', '', '', ''],
+        ['4', '', '', ''],
+        ['', '', '3', ''],
         ['', '', '', ''],
         ['', '', '', ''],
     ]
@@ -65,15 +65,8 @@ class State(pc.State):
     ]
 
     def solve(self):
-        n = 4
-        solution = solveGrid(n)
-        newGrid = []
-        for i in range(n) :
-            newGrid.append([])
-            for j in range(n) :
-                newGrid[i].append(str(solution[i*n+j][2]))
-        print(newGrid)
-        self.gridDigit = newGrid
+        solution = solveGrid(self.gridDigit, [[[0, 1], [1, 1]]])
+        self.gridDigit = solution
 
 
 def index() -> pc.Component:
