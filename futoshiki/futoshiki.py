@@ -10,11 +10,15 @@ from futoshiki.pages.game import pageGame
 # Text
 from futoshiki.utils.text import TEXT_FUTOSHIKI_DESCRIPTION
 
-# Funcions
+# Functions
 from futoshiki.utils.solver import solve as solveGrid
 
-# Type
+# Python functions
 from typing import List
+from random import randint
+
+# Grid
+from futoshiki.utils.grids import grids
 
 
 # Arrows : ᐊᐅᐃᐁ
@@ -22,61 +26,85 @@ from typing import List
 class State(pc.State):
     """The app state."""
 
+    # Display digits
     gridDigit: List[List[str]] = [
         ['', '', '', ''],
         ['', '', '', ''],
         ['', '', '', ''],
         ['', '', '', ''],
     ]
+    
+    # Display inequalities
+    gridInequal: List[List[str]] = []
 
-    # gridInequal: List[List[str]] = [
-    #     ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-    #     ['', '', '', '', '', '', '', '', '', '', '', 'ᐊ', '', '', ''],
-    #     ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-    #     ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-    #     ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-    #     ['', '', '', '', '', '', '', 'ᐅ', '', '', '', '', '', '', ''],
-    #     ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-    #     ['', 'ᐁ', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-    #     ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-    #     ['', '', '', '', '', '', '', 'ᐊ', '', '', '', '', '', '', ''],
-    #     ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-    #     ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-    #     ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-    #     ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-    #     ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-    # ]
-    gridInequal: List[List[str]] = [
-        ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-        ['', '', '', '', '', '', '', '', '', '', '', '', '', '', ''],
-    ]
+    # Contain inequalities
+    inequalities: List[List[List[int]]] = []
 
-    def solve(self):
-        n = 4
-        solution = solveGrid(n)
-        newGrid = []
-        for i in range(n) :
-            newGrid.append([])
-            for j in range(n) :
-                newGrid[i].append(str(solution[i*n+j][2]))
-        print(newGrid)
-        self.gridDigit = newGrid
+    def newGrid (self) :
+      
+      # Load a random grid
+      randomGrid = grids[randint(0, len(grids) - 1)]
+      
+      # Modify state with new datas
+      self.gridDigit = randomGrid['gridDigits']
+      self.inequalities = randomGrid['gridInequals']
+      self.gridInequal = self.create_grid_inequal(self.inequalities)
 
+    def solve (self) :
+        solution = solveGrid(self.gridDigit, self.inequalities)
+        self.gridDigit = solution
 
+    def create_grid_inequal(self, constraints):
+      """
+      Format constraints to display it
+      """
+
+      gridInequalsFormat = [['' for i in range(15)] for j in range(15)]
+
+      for constraint in constraints :
+          # Check row
+          maxValue = max(constraint[0][0], constraint[1][0])
+          if (maxValue == 0) :
+              indexRow = 1
+          else :
+            if (constraint[0][0] == constraint[1][0]) :
+              indexRow = maxValue * 4 + 1
+            else :
+              indexRow = maxValue * 4 - 1
+
+          # Check column
+          maxValue = max(constraint[0][1], constraint[1][1])
+          if (maxValue == 0) :
+              indexCol = 1
+          else :
+              if (constraint[0][1] == constraint[1][1]) :
+                indexCol = maxValue * 4 + 1
+              else :
+                indexCol = maxValue * 4 - 1
+          
+          # Up
+          if (constraint[0][0] > constraint[1][0]) :
+            gridInequalsFormat[indexRow][indexCol] = 'ᐃ'
+          # Down
+          elif (constraint[1][0] > constraint[0][0]) :
+            gridInequalsFormat[indexRow][indexCol] = 'ᐁ'
+          # Left
+          elif (constraint[0][1] > constraint[1][1]) :
+            gridInequalsFormat[indexRow][indexCol] = 'ᐊ'
+          # Right
+          elif (constraint[1][1] > constraint[0][1]) :
+            gridInequalsFormat[indexRow][indexCol] = 'ᐅ'
+      
+      return gridInequalsFormat
+
+    def __init__(self):
+        """Initialize the state."""
+        super().__init__()
+        self.newGrid()
+              
+          
 def index() -> pc.Component:
+
     return pc.center(
         pc.vstack(
             pc.heading('Futoshiki', font_size="2em"),

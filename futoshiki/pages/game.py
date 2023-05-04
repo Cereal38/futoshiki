@@ -76,7 +76,11 @@ def pageGame(State) -> pc.Component:
 
             # Buttons
             pc.center(
-                pc.button('New', size='lg'),
+                pc.button(
+                  'New', 
+                  size='lg',
+                  on_click=State.newGrid
+                ),
                 pc.button(
                     'Solve',
                     size='lg',
