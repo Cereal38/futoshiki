@@ -28,7 +28,7 @@ It will avoid to install packages of this project globally.
 
 Install all dependencies and run the server :    
 
-    pip install -r requirements.txt && pc run
+    pip install -r requirements.txt && pc init && pc run
 
 Then : Using any browser, connect to the localhost server (port 3000 by default) : http://localhost:3000
 
