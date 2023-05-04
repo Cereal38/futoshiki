@@ -10,11 +10,15 @@ from futoshiki.pages.game import pageGame
 # Text
 from futoshiki.utils.text import TEXT_FUTOSHIKI_DESCRIPTION
 
-# Funcions
+# Functions
 from futoshiki.utils.solver3 import solve as solveGrid
 
-# Type
+# Python functions
 from typing import List
+from random import randint
+
+# Grid
+from futoshiki.utils.grids import grids
 
 
 # Arrows : ᐊᐅᐃᐁ
@@ -33,31 +37,22 @@ class State(pc.State):
     # Display inequalities
     gridInequal: List[List[str]] = []
 
-    def newGrid (self) :
-       
-      self.gridDigit = [
-      ['4', '', '', ''],
-      ['', '', '3', ''],
-      ['', '', '', '2'],
-      ['', '', '', ''],
-      ]
+    # Contain inequalities
+    inequalities: List[List[List[int]]] = []
 
-      self.gridInequal = self.create_grid_inequal([
-        [[0, 0], [0, 1]],
-        [[0, 1], [0, 2]],
-      ])
+    def newGrid (self) :
+      
+      # Load a random grid
+      randomGrid = grids[randint(0, len(grids) - 1)]
+      
+      # Modify state with new datas
+      self.gridDigit = randomGrid['gridDigits']
+      self.inequalities = randomGrid['gridInequals']
+      self.gridInequal = self.create_grid_inequal(self.inequalities)
 
     def solve (self) :
-        solution = solveGrid(self.gridDigit, [[[0, 1], [1, 1]]])
+        solution = solveGrid(self.gridDigit, self.inequalities)
         self.gridDigit = solution
-        self.gridInequal = self.create_grid_inequal([
-            [[1, 1], [0, 1]],
-            [[1, 1], [1, 2]],
-            [[1, 1], [2, 1]],
-            [[1, 1], [1, 0]],
-            [[3, 0], [2, 0]],
-            [[0, 3], [0, 2]],
-        ])
 
     def create_grid_inequal(self, constraints):
       """
@@ -89,7 +84,7 @@ class State(pc.State):
           
           # Up
           if (constraint[0][0] > constraint[1][0]) :
-            gridInequalsFormat[indexRow][indexCol] = 'Δ'
+            gridInequalsFormat[indexRow][indexCol] = 'ᐃ'
           # Down
           elif (constraint[1][0] > constraint[0][0]) :
             gridInequalsFormat[indexRow][indexCol] = 'ᐁ'
