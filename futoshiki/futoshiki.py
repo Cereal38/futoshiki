@@ -11,7 +11,7 @@ from futoshiki.pages.game import pageGame
 from futoshiki.utils.text import TEXT_FUTOSHIKI_DESCRIPTION
 
 # Functions
-from futoshiki.utils.solver3 import solve as solveGrid
+from futoshiki.utils.solver import solve as solveGrid
 
 # Python functions
 from typing import List
